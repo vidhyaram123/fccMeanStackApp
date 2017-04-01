@@ -1,0 +1,37 @@
+<link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+Get the bars around your place
+
+<input id = "zipInput"> <button id="submitButton" onclick="invokeYelp()" > Submit</button>
+<div id = "results"/>
+<script>
+    
+    function invokeYelp(){
+    
+    
+    var zip = $('#zipInput').val();
+    console.log("zip is "+ zip)
+    $.ajax({
+        type: 'GET',
+        url: '/yelp?zip='+zip,
+        success: function(data) {
+          displayResult(data);
+        }
+    });
+    
+    }
+    
+    function displayResult(data) {
+var html ="";
+for(var i = 0; i < data.length; i++){
+    html += "<div class='row'>";
+    html += "<div class='col-lg-4'><b>"+data[i].name+"</b><div class='col-lg-4'>"+data[i].phone+"</div><div class='col-lg-4' >Rating: "+data[i].rating+"</div></div>";
+     html += "</div>";
+
+}
+
+    $('#results').html(html);
+    }
+</script>
